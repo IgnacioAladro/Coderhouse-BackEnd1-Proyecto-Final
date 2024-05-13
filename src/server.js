@@ -8,11 +8,12 @@ import { productsRouter } from "./routes/products.router.js";
 
 import { CartManager } from "./manager/cartManager.js";
 export const cartManager = new CartManager;
+import { cartsRouter } from "./routes/carts.router.js";
 
 
 
 app.use('/api/products', productsRouter);
-app.use('/api/carts', );
+app.use('/api/carts', cartsRouter);
 
 
 

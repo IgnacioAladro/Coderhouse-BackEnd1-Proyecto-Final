@@ -40,13 +40,6 @@ export class ProductManager {
         const productExist = products.find(product => product.id === id);
         if (productExist) return productExist
         else console.log('No se encontro el producto que busca');
-        /*         
-        if (product) {
-            return product;
-        } else {
-            console.log('NO se a encontrado el producto');
-        }; 
-        */
     };
 
     updateProduct = async (id, {...data}) => {

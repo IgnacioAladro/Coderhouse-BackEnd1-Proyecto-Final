@@ -1,1 +1,11 @@
-[]
+[
+    {
+        "id": "1be03266-6925-46eb-bbeb-37c55c52cf29",
+        "products": [
+            {
+                "productId": "producto1",
+                "quantity": 2
+            }
+        ]
+    }
+]
