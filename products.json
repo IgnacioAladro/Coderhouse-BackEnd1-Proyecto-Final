@@ -1,0 +1,13 @@
+[
+    {
+        "id": "5c945e4a-3ab8-43ec-94ce-bf5032da6290",
+        "title": "Producto de prueba 1",
+        "description": "probando producto 1",
+        "price": 400,
+        "thumbnail": "",
+        "code": "mt3",
+        "stock": 11,
+        "status": "false",
+        "category": "prueba"
+    }
+]

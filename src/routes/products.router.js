@@ -8,7 +8,7 @@ import { productManager } from '../server.js';
 productsRouter.get('/', async(req, res) => {
     try {
         const { limit } = req.query;
-        const products = productManager.getProducts();
+        const products = await productManager.getProducts();
 
         if (limit) {
             const limitedProducts = products.slice(0, limit);
@@ -26,7 +26,7 @@ productsRouter.get('/', async(req, res) => {
 productsRouter.get('/:pid', async(req, res) => {
     const { pid } = req.params;
     try {
-        const products = productManager.getProductById(pid);
+        const products = await productManager.getProductById(pid);
         res.json(products);
     } catch (error) {
         res.send(`A ocurrido un error con la solicitud del ID --> ${pid}`)
@@ -36,11 +36,34 @@ productsRouter.get('/:pid', async(req, res) => {
 
 productsRouter.post('/', async(req, res) => {
     try {
-        const { title, description, price, thumbnail, code, stock, status, category } = req.body;
+        const { title, description, price, thumbnail, code, stock, status = true, category } = req.body;
         const productAdded = await productManager.addProduct({ title, description, price, thumbnail, code, stock, status, category });
         res.json(productAdded);
     } catch (error) {
         res.send('No se a podido agregar el producto')
+        console.log(error);
+    };
+});
+
+productsRouter.put('/:pid', async (req, res) => {
+    const { pid } = req.params;
+    try {
+        const { title, description, price, thumbnail, code, stock, status = true, category } = req.body;
+        const productUpdated = await productManager.updateProduct(pid, { title, description, price, thumbnail, code, stock, status, category });
+        res.json(productUpdated);
+    } catch (error) {
+        res.send('No se a podido actualizar el producto')
+        console.log(error);
+    };
+});
+
+productsRouter.delete('/:pid', async (req, res) => {
+    const { pid } = req.params;
+    try {
+        await productManager.deleteProduct(pid);
+        res.send(`Se a eliminado el producto ${pid}`);
+    } catch (error) {
+        res.send('No se a podido eliminar el producto');
         console.log(error);
     };
 });

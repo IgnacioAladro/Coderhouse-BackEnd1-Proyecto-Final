@@ -34,14 +34,21 @@ export class ProductManager {
     };
 
     getProductById = async (id) => {
-        const products = this.getProducts();
-        const product = products.find(product => product.id == id);
-        if (product) return product
+        const products = await this.getProducts();
+        const productExist = products.find(product => product.id == id);
+        if (productExist) return productExist
         else console.log('No se encontro el producto que busca');
+        /*         
+        if (product) {
+            return product;
+        } else {
+            console.log('NO se a encontrado el producto');
+        }; 
+        */
     };
 
     updateProduct = async (id, {...data}) => {
-        const products = this.getProducts();
+        const products = await this.getProducts();
         const i = products.findIndex(product => product.id == id);
         if (i >= 0) {
             products[i] = {...products[i],...data};
@@ -53,7 +60,7 @@ export class ProductManager {
     };
 
     deleteProduct = async (id) => {
-        const products = this.getProducts();
+        const products = await this.getProducts();
         const i = products.findIndex(product => product.id == id);
         if (i >= 0) {
             products.splice(i, 1);

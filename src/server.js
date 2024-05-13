@@ -7,7 +7,7 @@ export const productManager = new ProductManager;
 
 import { productsRouter } from "./routes/products.router.js";
 
-app.use('/products', productsRouter);
+app.use('/api/products', productsRouter);
 
 
 
