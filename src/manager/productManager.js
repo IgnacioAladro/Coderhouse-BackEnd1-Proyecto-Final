@@ -1,9 +1,11 @@
 import { promises as fs } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 
+
+
 export class ProductManager {
     constructor () {
-        this.path = 'products.json';
+        this.path = './src/manager/products.json';
         this.products = [];
     };
 
@@ -35,7 +37,7 @@ export class ProductManager {
 
     getProductById = async (id) => {
         const products = await this.getProducts();
-        const productExist = products.find(product => product.id == id);
+        const productExist = products.find(product => product.id === id);
         if (productExist) return productExist
         else console.log('No se encontro el producto que busca');
         /*         
@@ -49,7 +51,7 @@ export class ProductManager {
 
     updateProduct = async (id, {...data}) => {
         const products = await this.getProducts();
-        const i = products.findIndex(product => product.id == id);
+        const i = products.findIndex(product => product.id === id);
         if (i >= 0) {
             products[i] = {...products[i],...data};
             await fs.writeFile(this.path, JSON.stringify(products));
@@ -61,7 +63,7 @@ export class ProductManager {
 
     deleteProduct = async (id) => {
         const products = await this.getProducts();
-        const i = products.findIndex(product => product.id == id);
+        const i = products.findIndex(product => product.id === id);
         if (i >= 0) {
             products.splice(i, 1);
             await fs.writeFile(this.path, JSON.stringify(products));
