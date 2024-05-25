@@ -1,9 +1,12 @@
-
-<p>Crear una vista “home.handlebars” la cual contenga una lista de todos los productos agregados hasta el momento</p>
+<p>Crear una vista "home.handlebars" la cual contenga una lista de todos los productos agregados hasta el momento</p>
 
 <h2>Lista de todos los productos agregados</h2>
-<ul>
+<ul class="products-list">
     {{#each products}}
-        <li>{{this.title}} - {{this.price}}</li>
+        <li>
+            <h3>{{this.title}}</h3>
+            <p>{{this.description}}</p>
+            <p class="price">Precio: ${{this.price}}</p>
+        </li>
     {{/each}}
 </ul>
