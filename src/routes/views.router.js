@@ -1,9 +1,13 @@
 import { Router } from "express";
-const router = Router();
+const viewsRouter = Router();
 
 import { __dirname } from '../path.js';
 
 import { promises as fs } from 'fs';
+
+import { socketServer } from "../server.js";
+
+
 
 const loadProducts = async () => {
     try {
@@ -17,8 +21,28 @@ const loadProducts = async () => {
 
 const allProducts = await loadProducts();
 
-router.get('/', (req, res) => {
+viewsRouter.get('/', (req, res) => {
     res.render('home', { products: allProducts });
 });
 
-export default router;
+viewsRouter.get('/realtimeproducts', (req, res) => {
+    res.render('realTimeProducts', { products: allProducts });
+
+    socketServer.on('connection', (socket) => {
+        console.log(`El usuario ${socket.id} esta mirando la lista de productos en tiempo real`);
+
+        socket.on('disconnect', () => {
+            console.log(`El usuario ${socket.id} se a desconectado`);
+        });
+
+        socket.on('productAdded', (product) => {
+            socketServer.emit('productAdded', product);
+        });
+
+        socket.on('deleteProduct', (productId) => {
+            socketServer.emit('deleteProduct', productId);
+        });
+    });
+});
+
+export default viewsRouter;

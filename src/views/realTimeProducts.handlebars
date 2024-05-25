@@ -1,3 +1,16 @@
-{{!-- Aca tiene que trabajar con websockets --}}
+<p>Crear una vista “realTimeProducts.handlebars”, la cual vivirá en el endpoint “/realtimeproducts” en nuestro views router, ésta contendrá la misma lista de productos, sin embargo, ésta trabajará con websockets.</p>
 
-<p>crear una vista “realTimeProducts.handlebars”, la cual vivirá en el endpoint “/realtimeproducts” en nuestro views router, ésta contendrá la misma lista de productos, sin embargo, ésta trabajará con websockets.</p>
+
+<h2>Lista de productos en tiempo real</h2>
+<ul id="product-list" class="products-list">
+    {{#each products}}
+        <li>
+            <h3>{{this.title}}</h3>
+            <p>{{this.description}}</p>
+            <p class="price">Precio: ${{this.price}}</p>
+        </li>    
+    {{/each}}
+</ul>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/index.js"></script>

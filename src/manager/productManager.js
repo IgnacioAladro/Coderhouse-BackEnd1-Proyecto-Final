@@ -1,5 +1,6 @@
 import { promises as fs } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
+import { socketServer } from "../server.js";
 
 
 
@@ -25,6 +26,7 @@ export class ProductManager {
         this.products = await this.getProducts();
         this.products.push(newProduct);
         await fs.writeFile(this.path, JSON.stringify(this.products));
+        socketServer.emit('productAdded', newProduct);
         return newProduct;
     };
 
@@ -60,6 +62,7 @@ export class ProductManager {
         if (i >= 0) {
             products.splice(i, 1);
             await fs.writeFile(this.path, JSON.stringify(products));
+            socketServer.emit('deleteProduct', i);
             return products;
         } else {
             console.log('No se encontro el producto que desea eliminar');
