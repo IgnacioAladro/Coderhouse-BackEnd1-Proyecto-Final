@@ -3,6 +3,7 @@ const app = express();
 
 import { __dirname } from './path.js';
 import viewsRouter from './routes/views.router.js';
+
 import handlebars from 'express-handlebars';
 
 import { ProductManager } from "./manager/productManager.js";
@@ -37,4 +38,23 @@ const PORT = 8080;
 const httpServer = app.listen(PORT, () => console.log(`Server OK --> port ${PORT}`));
 
 const socketServer = new Server(httpServer);
+
+socketServer.on('connection', (socket) => {
+    console.log(`El usuario ${socket.id} esta mirando la lista de productos en tiempo real`);
+
+    socket.on('disconnect', () => {
+        console.log(`El usuario ${socket.id} se a desconectado`);
+    });
+
+    socket.on('productAdded', async(product) => {
+        socketServer.emit('productAdded', product);
+    });
+
+    socket.on('deleteProduct', async(productId) => {
+        socketServer.emit('deleteProduct', productId);
+    });
+});
+
+
+
 export { socketServer };
