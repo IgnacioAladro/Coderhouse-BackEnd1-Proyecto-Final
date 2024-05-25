@@ -46,11 +46,11 @@ socketServer.on('connection', (socket) => {
         console.log(`El usuario ${socket.id} se a desconectado`);
     });
 
-    socket.on('productAdded', async(product) => {
+    socket.on('productAdded', (product) => {
         socketServer.emit('productAdded', product);
     });
 
-    socket.on('deleteProduct', async(productId) => {
+    socket.on('deleteProduct', (productId) => {
         socketServer.emit('deleteProduct', productId);
     });
 });

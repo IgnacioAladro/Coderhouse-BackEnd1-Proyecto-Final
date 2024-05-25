@@ -62,7 +62,7 @@ export class ProductManager {
         if (i >= 0) {
             products.splice(i, 1);
             await fs.writeFile(this.path, JSON.stringify(products));
-            socketServer.emit('deleteProduct', i);
+            socketServer.emit('deleteProduct', id);
             return products;
         } else {
             console.log('No se encontro el producto que desea eliminar');
