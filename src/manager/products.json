@@ -1,12 +1,56 @@
 [
     {
         "id": "5c945e4a-3ab8-43ec-94ce-bf5032da6290",
-        "title": "Producto de prueba 1",
-        "description": "probando producto 1",
-        "price": 400,
+        "title": "Mochila Trekking Outdoor 35 Lts",
+        "description": "Ideal para viajes. Reforzada Color Naranja Diseño de la tela Liso",
+        "price": 69900,
         "thumbnail": "",
         "code": "mt3",
         "stock": 11,
+        "status": "false",
+        "category": "prueba"
+    },
+    {
+        "id": "ee5d8fe0-0533-4ef8-85e0-f14d500cc666",
+        "title": "Producto de prueba 2",
+        "description": "probando producto 2",
+        "price": 1600,
+        "thumbnail": "",
+        "code": "mt3",
+        "stock": 9,
+        "status": "false",
+        "category": "prueba"
+    },
+    {
+        "id": "cda26f56-c2b2-41d9-9f86-e558edc180b7",
+        "title": "Producto de prueba 9",
+        "description": "probando producto 9",
+        "price": 750,
+        "thumbnail": "",
+        "code": "mt3",
+        "stock": 2,
+        "status": "false",
+        "category": "prueba"
+    },
+    {
+        "id": "4c852108-efdc-4e1f-9b84-dbff3343ab07",
+        "title": "Producto de prueba 8",
+        "description": "probando producto 8",
+        "price": 25,
+        "thumbnail": "",
+        "code": "mt3",
+        "stock": 120,
+        "status": "false",
+        "category": "prueba"
+    },
+    {
+        "id": "c6bcf1c6-9f16-411d-9e12-e0d230a3a879",
+        "title": "Producto de prueba 11",
+        "description": "probando producto 11",
+        "price": 65,
+        "thumbnail": "",
+        "code": "mt3",
+        "stock": 5,
         "status": "false",
         "category": "prueba"
     }
