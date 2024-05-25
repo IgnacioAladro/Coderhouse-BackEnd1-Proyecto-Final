@@ -1,7 +1,7 @@
 const socket = io();
 
 socket.on('productAdded', (product) => {
-    const productList = document.getElementById('product-list');
+    const productList = document.getElementById('products-list');
     const newProduct = document.createElement('li');
     newProduct.classList.add('product-item');
 
@@ -25,13 +25,19 @@ socket.on('productAdded', (product) => {
     productList.appendChild(newProduct);
 });
 
-socket.on('deleteProduct', (product) => {
-    const productList = document.getElementById('product-list');
+socket.on('deleteProduct', (productId) => {
+    console.log('Recibiendo evento deleteProduct con ID:', productId);
+
+    const productList = document.getElementById('products-list');
     const productItems = productList.getElementsByClassName('product-item');
+
     for (let i = 0; i < productItems.length; i++) {
-        const title = productItems[i].querySelector('h3').textContent;
-        if (title === allProducts[product].title) {
-            productList.removeChild(productItems[i]);
+        const productItem = productItems[i];
+        const productIdInput = productItem.querySelector('input[type="hidden"]');
+
+        if (productIdInput && productIdInput.value === productId) {
+            productList.removeChild(productItem);
+            console.log('Producto eliminado:', productId);
             break;
         }
     }
