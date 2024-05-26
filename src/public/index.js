@@ -1,5 +1,7 @@
 const socket = io();
 
+
+
 socket.on('productAdded', (product) => {
     const productList = document.getElementById('products-list');
     const newProduct = document.createElement('li');
@@ -25,7 +27,60 @@ socket.on('productAdded', (product) => {
     productList.appendChild(newProduct);
 });
 
+/* socket.on('deleteProduct', (productId) => {
+    console.log('Evento con ID:', productId);
+
+    const deleteProduct = (productItem) => {
+        try {
+            productItem.remove();
+            console.log('Producto eliminado:', productItem.dataset.productId);
+        } catch (error) {
+            console.error('Error al eliminar el producto:', error);
+        }
+    };
+
+    const productItem = document.querySelector(`li[data-product-id="${productId}"]`);
+    
+    if (productItem) {
+        deleteProduct(productItem);
+    } else {
+        console.log('Producto no encontrado para eliminar:', productId);
+    }
+}); */
+
+/* socket.on('deleteProduct', (productId) => {
+    console.log('Eliminar producto con ID:', productId);
+
+    const productList = document.getElementById('products-list');
+    const productItems = productList.getElementsByClassName('product-item');
+
+    for (let i = 0; i < productItems.length; i++) {
+        const productItem = productItems[i];
+        const productIdInput = productItem.querySelector('input[type="hidden"]');
+
+        if (productIdInput && productIdInput.value === productId) {
+            productList.removeChild(productItem);
+            console.log('Producto eliminado:', productId);
+            break;
+        }
+    }
+}); */
+
+
 socket.on('deleteProduct', (productId) => {
-    const productDeleted = document.querySelector(`li[data-product-id="${productId}"]`);
-    if (productDeleted) {productDeleted.remove();}
+    console.log('Eliminar producto con ID:', productId);
+
+    const productList = document.getElementById('products-list');
+    const productItems = productList.querySelectorAll('li[data-product-id]');
+
+    for (let i = 0; i < productItems.length; i++) {
+        const productItem = productItems[i];
+        const productItemId = productItem.getAttribute('data-product-id');
+
+        if (productItemId === productId) {
+            productItem.remove();
+            console.log('Producto eliminado:', productId);
+            break;
+        }
+    }
 });
