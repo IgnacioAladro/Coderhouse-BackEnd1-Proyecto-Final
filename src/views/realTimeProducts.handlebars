@@ -4,7 +4,7 @@
 <h2>Lista de productos en tiempo real</h2>
 <ul id="products-list" class="products-list">
     {{#each products}}
-        <li>
+        <li data-product-id="{{this.id}}">
             <h3>{{this.title}}</h3>
             <p>{{this.description}}</p>
             <p class="price">Precio: ${{this.price}}</p>

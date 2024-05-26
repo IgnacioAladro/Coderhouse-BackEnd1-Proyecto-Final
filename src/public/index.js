@@ -26,19 +26,6 @@ socket.on('productAdded', (product) => {
 });
 
 socket.on('deleteProduct', (productId) => {
-    console.log('Recibiendo evento deleteProduct con ID:', productId);
-
-    const productList = document.getElementById('products-list');
-    const productItems = productList.getElementsByClassName('product-item');
-
-    for (let i = 0; i < productItems.length; i++) {
-        const productItem = productItems[i];
-        const productIdInput = productItem.querySelector('input[type="hidden"]');
-
-        if (productIdInput && productIdInput.value === productId) {
-            productList.removeChild(productItem);
-            console.log('Producto eliminado:', productId);
-            break;
-        }
-    }
+    const productDeleted = document.querySelector(`li[data-product-id="${productId}"]`);
+    if (productDeleted) {productDeleted.remove();}
 });
