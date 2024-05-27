@@ -1,6 +1,10 @@
 const socket = io();
 
+let productsListON = [];
 
+socket.on('initialProducts', (products) => {
+
+})
 
 socket.on('productAdded', (product) => {
     const productList = document.getElementById('products-list');
@@ -84,3 +88,4 @@ socket.on('deleteProduct', (productId) => {
         }
     }
 });
+
