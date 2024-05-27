@@ -31,48 +31,8 @@ socket.on('productAdded', (product) => {
     productList.appendChild(newProduct);
 });
 
-/* socket.on('deleteProduct', (productId) => {
-    console.log('Evento con ID:', productId);
-
-    const deleteProduct = (productItem) => {
-        try {
-            productItem.remove();
-            console.log('Producto eliminado:', productItem.dataset.productId);
-        } catch (error) {
-            console.error('Error al eliminar el producto:', error);
-        }
-    };
-
-    const productItem = document.querySelector(`li[data-product-id="${productId}"]`);
-    
-    if (productItem) {
-        deleteProduct(productItem);
-    } else {
-        console.log('Producto no encontrado para eliminar:', productId);
-    }
-}); */
-
-/* socket.on('deleteProduct', (productId) => {
-    console.log('Eliminar producto con ID:', productId);
-
-    const productList = document.getElementById('products-list');
-    const productItems = productList.getElementsByClassName('product-item');
-
-    for (let i = 0; i < productItems.length; i++) {
-        const productItem = productItems[i];
-        const productIdInput = productItem.querySelector('input[type="hidden"]');
-
-        if (productIdInput && productIdInput.value === productId) {
-            productList.removeChild(productItem);
-            console.log('Producto eliminado:', productId);
-            break;
-        }
-    }
-}); */
-
-
 socket.on('deleteProduct', (productId) => {
-    console.log('Eliminar producto con ID:', productId);
+    console.log('Se escucho la eliminacion del producto con ID:', productId);
 
     const productList = document.getElementById('products-list');
     const productItems = productList.querySelectorAll('li[data-product-id]');
@@ -83,7 +43,7 @@ socket.on('deleteProduct', (productId) => {
 
         if (productItemId === productId) {
             productItem.remove();
-            console.log('Producto eliminado:', productId);
+            console.log(`El prodcuto con ID ${productId} se a eliminado de la vista del cliente`);
             break;
         }
     }
