@@ -17,7 +17,7 @@ export const getById = async (req, res, next) => {
         else res.status(200).json(response);
     } catch (error) {
         next(error.message);
-    }
+    };
 };
 
 export const create = async (req, res, next) => {
@@ -27,7 +27,7 @@ export const create = async (req, res, next) => {
         else res.status(200).json(newCart);
     } catch (error) {
         next(error.message);
-    }
+    };
 };
 
 export const remove = async (req, res, next) => {
@@ -38,14 +38,29 @@ export const remove = async (req, res, next) => {
         else res.status(200).json({ msg: `Cart id: ${id} deleted` });
     } catch (error) {
         next(error.message);
-    }
+    };
 };
 
-export const addProdToCart = async (req, res, next) => {
+export const clearCart = async (req, res, next) => {
+
+};
+
+export const update = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const cartUpd = await service.update(id, req.body);
+        if (!cartUpd) res.status(400).json({ msg: "Error update cart!" });
+        else res.status(200).json(cartUpd);
+    } catch (error) {
+        next(error.message);
+    };
+};
+
+export const addProductToCart = async (req, res, next) => {
     try {
         const { idCart } = req.params;
         const { idProd } = req.params;
-        const newProdToUserCart = await service.addProdToCart(
+        const newProdToUserCart = await service.addProductToCart(
             idCart,
             idProd,
         );
@@ -56,27 +71,16 @@ export const addProdToCart = async (req, res, next) => {
     };
 };
 
-export const removeProdToCart = async (req, res, next) => {
+export const removeProductToCart = async (req, res, next) => {
     try {
         const { idCart } = req.params;
         const { idProd } = req.params;
-        const deletedProductFromCart = await service.removeProdToCart(
+        const deletedProductFromCart = await service.removeProductToCart(
             idCart,
             idProd,
         );
         if (!deletedProductFromCart) res.json({ msg: "Error remove product to cart" });
         else res.json({ msg: `product ${idProd} deleted to cart` });
-    } catch (error) {
-        next(error.message);
-    };
-};
-
-export const update = async (req, res, next) => {
-    try {
-        const { id } = req.params;
-        const cartUpd = await service.update(id, req.body);
-        if (!cartUpd) res.status(400).json({ msg: "Error update cart!" });
-        else res.status(200).json(cartUpd);
     } catch (error) {
         next(error.message);
     };

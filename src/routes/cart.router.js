@@ -13,13 +13,15 @@ router.post("/", controller.create);
 
 router.delete("/:id", controller.remove);
 
-router.post("/:idCart/products/:idProd", controller.addProdToCart);
-
-router.put("/:idCart/products/:idProd", controller.updateQuantityOfProductsInCart);
-
-router.delete("/:idCart/products/:idProd", controller.removeProdToCart);
+router.delete("/clear/:idCart", controller.clearCart);
 
 router.put("/:id", controller.update);
+
+router.post("/:idCart/products/:idProd", controller.addProductToCart);
+
+router.delete("/:idCart/products/:idProd", controller.removeProductToCart);
+
+router.put("/:idCart/products/:idProd", controller.updateQuantityOfProductsInCart);
 
 
 

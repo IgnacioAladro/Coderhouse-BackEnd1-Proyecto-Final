@@ -29,7 +29,7 @@ export default class CartDaoMongoDB {
         };
     };
 
-    async delete(id) {
+    async remove(id) {
         try {
             return await CartModel.findByIdAndDelete(id);
         } catch (error) {
@@ -37,22 +37,46 @@ export default class CartDaoMongoDB {
         };
     };
 
-    async existProductInCart(cartId, prodId) {
+    async clearCart(cartId) {
         try {
-            return await CartModel.findOne({
-                _id: cartId,
-                products: { $elemMatch: { product: prodId } }
+            return await CartModel.findOneAndUpdate(
+                { _id: cartId },
+                { $set: { products: [] } },
+                { new: true }
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    async update(id, obj) {
+        try {
+            const response = await CartModel.findByIdAndUpdate(id, obj, {
+                new: true,
             });
+            return response;
         } catch (error) {
             console.log(error);
         };
     };
 
-    async addProdToCart(cartId, prodId, quantity) {
+    async addProductToCart(cartId, prodId, quantity) {
         try {
             return await CartModel.findByIdAndUpdate(
                 cartId,
                 { $push: { products: { product: prodId, quantity } } },
+                { new: true }
+            );
+        } catch (error) {
+            console.log(error);
+        };
+    };
+
+    async removeProductToCart(cartId, prodId) {
+        try {
+            return await CartModel.findByIdAndUpdate(
+                { _id: cartId },
+                { $pull: { products: { product: prodId } } },
                 { new: true }
             );
         } catch (error) {
@@ -77,24 +101,12 @@ export default class CartDaoMongoDB {
         };
     };
 
-    async removeProdToCart(cartId, prodId) {
+    async existProductInCart(cartId, prodId) {
         try {
-            return await CartModel.findByIdAndUpdate(
-                { _id: cartId },
-                { $pull: { products: { product: prodId } } },
-                { new: true }
-            );
-        } catch (error) {
-            console.log(error);
-        };
-    };
-
-    async update(id, obj) {
-        try {
-            const response = await CartModel.findByIdAndUpdate(id, obj, {
-                new: true,
+            return await CartModel.findOne({
+                _id: cartId,
+                products: { $elemMatch: { product: prodId } }
             });
-            return response;
         } catch (error) {
             console.log(error);
         };
