@@ -1,6 +1,9 @@
 import { ProductModel } from "./models/product.model.js";
 
+
+
 export default class ProductDaoMongoDB {
+
     async getAll(page = 1, limit = 10, price, sort) {
         try {
             const filterByPrice = price ? { 'price': price } : {};
@@ -9,7 +12,7 @@ export default class ProductDaoMongoDB {
             const response = await ProductModel.paginate(filterByPrice, { page, limit, sort: sortOrder });
             return response;
         } catch (error) {
-            console.log(`A ocurrido un error al intentar mostrar los productos  -->  ${error}`);
+            console.log(`Ocurrio un error al intentar mostrar los productos  -->  ${error}`);
         };
     };
 
@@ -27,7 +30,7 @@ export default class ProductDaoMongoDB {
             const response = await ProductModel.create(obj);
             return response;
         } catch (error) {
-            console.log(`A ocurrido un error al intentar crear el producto solicitado  -->  ${error}`);
+            console.log(`Ocurrio un error al intentar crear el producto solicitado  -->  ${error}`);
         };
     };
 

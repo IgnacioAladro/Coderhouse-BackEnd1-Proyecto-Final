@@ -1,5 +1,7 @@
 import * as service from "../services/product.services.js";
 
+
+
 export const getAll = async (req, res, next) => {
     try {
         const { page, limit, price, sort } = req.query;
@@ -53,7 +55,7 @@ export const getById = async (req, res, next) => {
     try {
         const { id } = req.params;
         const response = await service.getById(id);
-        if (!response) res.status(404).json({ msg: "No se ecuentra el producto solicitado" });
+        if (!response) res.status(400).json({ msg: `No se pudo encontrar el producto ${id}` });
         else res.status(200).json(response);
     } catch (error) {
         next(error.message);
@@ -63,7 +65,7 @@ export const getById = async (req, res, next) => {
 export const create = async (req, res, next) => {
     try {
         const newProd = await service.create(req.body);
-        if (!newProd) res.status(404).json({ msg: "A ocurrido un error al intentar crear el producto solicitado" });
+        if (!newProd) res.status(400).json({ msg: "Ocurrido un error al intentar crear el producto solicitado" });
         else res.status(200).json(newProd);
     } catch (error) {
         next(error.message);
@@ -73,9 +75,9 @@ export const create = async (req, res, next) => {
 export const update = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const prodUpd = await service.update(id, req.body);
-        if (!prodUpd) res.status(404).json({ msg: "A ocurrido un error al intentar actualizar el producto solicitado" });
-        else res.status(200).json(prodUpd);
+        const productUpdated = await service.update(id, req.body);
+        if (!productUpdated) res.status(400).json({ msg: `Ocurrido un error al intentar actualizar el producto ${id}` });
+        else res.status(200).json(productUpdated);
     } catch (error) {
         next(error.message);
     };
@@ -84,8 +86,8 @@ export const update = async (req, res, next) => {
 export const remove = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const prodDel = await service.remove(id);
-        if (!prodDel) res.status(404).json({ msg: "A ocurrido un error al intentar eliminar el producto solicitado" });
+        const productRemoved = await service.remove(id);
+        if (!productRemoved) res.status(400).json({ msg: `Ocurrido un error al intentar eliminar el producto ${id}` });
         else res.status(200).json({ msg: `El producto ${id} fue eliminado` });
     } catch (error) {
         next(error.message);

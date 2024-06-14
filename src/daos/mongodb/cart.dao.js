@@ -3,6 +3,7 @@ import { CartModel } from "./models/cart.model.js";
 
 
 export default class CartDaoMongoDB {
+    
     async getAll() {
         try {
             return await CartModel.find({});

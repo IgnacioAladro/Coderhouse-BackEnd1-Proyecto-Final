@@ -1,5 +1,5 @@
 import ProductDaoMongoDB from "../daos/mongodb/product.dao.js";
-const prodDao = new ProductDaoMongoDB();
+const productsDao = new ProductDaoMongoDB();
 
 import CartDaoMongoDB from "../daos/mongodb/cart.dao.js";
 const cartDao = new CartDaoMongoDB();
@@ -24,9 +24,9 @@ export const getById = async (id) => {
 
 export const create = async () => {
     try {
-        const newcart = await cartDao.create();
-        if (!newcart) return false;
-        else return newcart;
+        const newCart = await cartDao.create();
+        if (!newCart) return false;
+        else return newCart;
     } catch (error) {
         console.log(error);
     }
@@ -54,7 +54,7 @@ export const addProductToCart = async (cartId, prodId) => {
     try {
         const existCart = await getById(cartId);
         if (!existCart) return null;
-        const existProduct = await prodDao.getById(prodId);
+        const existProduct = await productsDao.getById(prodId);
         if (!existProduct) return null;
         const productInCart = await cartDao.existProductInCart(cartId, prodId);
         if (productInCart) {
@@ -82,13 +82,9 @@ export const removeProductToCart = async (cartId, prodId) => {
 export const updateQuantityOfProductsInCart = async (cartId, prodId, quantity) => {
     try {
         const existCart = await getById(cartId);
-        console.log(`${existCart}: existCart`);
         if (!existCart) return null;
-
         const existProductInCart = await cartDao.existProductInCart(cartId, prodId);
-        console.log(`${existProductInCart}: existProductInCart`);
         if (!existProductInCart) return null;
-
         return await cartDao.updateQuantityOfProductsInCart(cartId, prodId, quantity);
     } catch (error) {
         console.log(error);
