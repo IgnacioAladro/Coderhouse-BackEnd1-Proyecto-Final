@@ -70,3 +70,11 @@ export const removeProdToCart = async (cartId, prodId) => {
         console.log(error);
     };
 };
+
+export const update = async (id, obj) => {
+    try {
+        return await cartDao.update(id, obj);
+    } catch (error) {
+        console.log(error);
+    };
+};
