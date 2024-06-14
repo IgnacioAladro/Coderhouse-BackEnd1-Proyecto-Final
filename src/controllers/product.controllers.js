@@ -4,8 +4,14 @@ export const getAll = async (req, res, next) => {
     try {
         const { page, limit, price, sort } = req.query;
         const response = await service.getAll(page, limit, price, sort);
-        // let url = `http://localhost:8080/products?page=${response.nextPage}`
-        // if(sort !== undefined) url + `&sort=${sort}`
+        if (sort !== undefined) {
+            let urlNext = `http://localhost:8080/products?page=${response.nextPage}`
+            return urlNextSort = urlNext + `&sort=${sort}`;
+        };
+        if (sort!== undefined) {
+            let urlPrev = `http://localhost:8080/products?page=${response.prevPage}`
+            return urlPrevSort = urlPrev + `&sort=${sort}`
+        };
         const next = response.hasNextPage ? `http://localhost:8080/products?page=${response.nextPage}` : null;
         const prev = response.hasPrevPage ? `http://localhost:8080/products?page=${response.prevPage}` : null;
         res.status(200).json({

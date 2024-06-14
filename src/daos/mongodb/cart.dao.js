@@ -37,7 +37,7 @@ export default class CartDaoMongoDB {
         };
     };
 
-    async addProdToCart(cartId, prodId) {
+    async addProdToCart(cartId, prodId, quantity) {
         try {
             const existProdInCart = await this.existProdInCart(cartId, prodId);
             if (existProdInCart) {

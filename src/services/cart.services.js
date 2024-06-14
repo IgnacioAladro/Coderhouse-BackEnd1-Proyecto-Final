@@ -46,10 +46,8 @@ export const addProdToCart = async (cartId, prodId) => {
     try {
         const existCart = await getById(cartId);
         if (!existCart) return null;
-
         const existProd = await prodDao.getById(prodId);
         if (!existProd) return null;
-
         return await cartDao.addProdToCart(cartId, prodId);
     } catch (error) {
         console.log(error);
