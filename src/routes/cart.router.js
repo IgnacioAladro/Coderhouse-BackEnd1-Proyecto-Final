@@ -15,6 +15,8 @@ router.delete("/:id", controller.remove);
 
 router.post("/:idCart/products/:idProd", controller.addProdToCart);
 
+router.put("/:idCart/products/:idProd", controller.updateQuantityOfProductsInCart);
+
 router.delete("/:idCart/products/:idProd", controller.removeProdToCart);
 
 router.put("/:id", controller.update);

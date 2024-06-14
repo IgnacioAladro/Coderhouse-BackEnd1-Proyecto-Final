@@ -81,3 +81,16 @@ export const update = async (req, res, next) => {
         next(error.message);
     };
 };
+
+export const updateQuantityOfProductsInCart = async (req, res, next) => {
+    try {
+        const { idCart } = req.params;
+        const { idProd } = req.params;
+        const { quantity } = req.body;
+        const updateQuantity = await service.updateQuantityOfProductsInCart(idCart, idProd, quantity);
+        if (!updateQuantity) res.json({ msg: `Ocurrio un error al actualizar las cantidades del producto ${idProd}`});
+        else res.json(updateQuantity);
+    } catch (error) {
+        next(error.message);
+    };
+};

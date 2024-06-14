@@ -78,3 +78,19 @@ export const update = async (id, obj) => {
         console.log(error);
     };
 };
+
+export const updateQuantityOfProductsInCart = async (cartId, prodId, quantity) => {
+    try {
+        const existCart = await getById(cartId);
+        console.log(`${existCart}: existCart`);
+        if (!existCart) return null;
+
+        const existProductInCart = await cartDao.existProductInCart(cartId, prodId);
+        console.log(`${existProductInCart}: existProductInCart`);
+        if (!existProductInCart) return null;
+        
+        return await cartDao.updateQuantityOfProductsInCart(cartId, prodId, quantity);
+    } catch (error) {
+        console.log(error);
+    };
+};

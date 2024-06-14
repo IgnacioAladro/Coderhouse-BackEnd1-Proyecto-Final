@@ -50,17 +50,28 @@ export default class CartDaoMongoDB {
 
     async addProdToCart(cartId, prodId, quantity) {
         try {
-            const cart = await CartModel.findById(cartId);
-            if (!cart) return null;
-            const productInCart = cart.products.findIndex(product => product.product.toString() === prodId);
-            if (productInCart !== -1) {
-                cart.products[productInCart].quantity = quantity;
-            } else return await CartModel.findByIdAndUpdate(
+            return await CartModel.findByIdAndUpdate(
                 cartId,
                 { $push: { products: { product: prodId, quantity } } },
                 { new: true }
             );
-            return cart;
+        } catch (error) {
+            console.log(error);
+        };
+    };
+
+    async updateQuantityOfProductsInCart(cartId, prodId, quantity) {
+        try {
+            return await CartModel.findOneAndUpdate(
+                {
+                    _id: cartId,
+                    'products.product': prodId 
+                },
+                {
+                    $set: { 'products.$.quantity': quantity }
+                },
+                { new: true }
+            ); 
         } catch (error) {
             console.log(error);
         };
