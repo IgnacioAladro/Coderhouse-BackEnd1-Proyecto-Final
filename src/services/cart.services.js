@@ -63,8 +63,8 @@ export const removeProdToCart = async (cartId, prodId) => {
     try {
         const existCart = await getById(cartId);
         if (!existCart) return null;
-        const existProdInCart = await cartDao.existProductInCart(cartId, prodId);
-        if (!existProdInCart) return null;
+        const existProductInCart = await cartDao.existProductInCart(cartId, prodId);
+        if (!existProductInCart) return null;
         return await cartDao.removeProdToCart(cartId, prodId);
     } catch (error) {
         console.log(error);

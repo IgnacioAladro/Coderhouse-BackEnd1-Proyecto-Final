@@ -72,7 +72,7 @@ export default class CartDaoMongoDB {
                 { _id: cartId },
                 { $pull: { products: { product: prodId } } },
                 { new: true }
-            )
+            );
         } catch (error) {
             console.log(error);
         };

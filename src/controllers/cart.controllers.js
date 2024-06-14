@@ -60,11 +60,11 @@ export const removeProdToCart = async (req, res, next) => {
     try {
         const { idCart } = req.params;
         const { idProd } = req.params;
-        const delProdToUserCart = await service.removeProdToCart(
+        const deletedProductFromCart = await service.removeProdToCart(
             idCart,
             idProd,
         );
-        if (!delProdToUserCart) res.json({ msg: "Error remove product to cart" });
+        if (!deletedProductFromCart) res.json({ msg: "Error remove product to cart" });
         else res.json({ msg: `product ${idProd} deleted to cart` });
     } catch (error) {
         next(error.message);
