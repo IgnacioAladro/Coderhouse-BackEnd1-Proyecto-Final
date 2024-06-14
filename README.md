@@ -1,11 +1,15 @@
+# CoderHouse // Backend I: Desarrollo Avanzado de Backend // Proyecto Final
 
-# CoderHouse // BackEnd I // Segunda Pre Entrega
+## Descripción
+Este repositorio contiene el desarrollo de mi proyecto final.
 
-El trabajo desarrola un servidor que contiene los endpoints y servicios necesarios para gestionar los productos y carritos de compra de un e-commerce.
-Ademas, configura el servidor para integrar el motor de plantillas Handlebars e instala un servidor de socket.io al mismo.
-
+## Contenido
+- **Desarrollo**
+  - **Tecnologías utilizadas**
+    - Node.js
+    - Express
+    - MongoDB
 
 ## Authors
 
 - [@IgnacioAladro](https://github.com/IgnacioAladro)
-
