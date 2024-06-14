@@ -53,7 +53,7 @@ export const addProdToCart = async (req, res, next) => {
         else res.json(newProdToUserCart);
     } catch (error) {
         next(error.message);
-    }
+    };
 };
 
 export const removeProdToCart = async (req, res, next) => {
@@ -68,5 +68,16 @@ export const removeProdToCart = async (req, res, next) => {
         else res.json({ msg: `product ${idProd} deleted to cart` });
     } catch (error) {
         next(error.message);
-    }
+    };
+};
+
+export const update = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const cartUpd = await service.update(id, req.body);
+        if (!cartUpd) res.status(404).json({ msg: "Error update cart!" });
+        else res.status(200).json(cartUpd);
+    } catch (error) {
+        next(error.message);
+    };
 };

@@ -4,16 +4,34 @@ export const getAll = async (req, res, next) => {
     try {
         const { page, limit, price, sort } = req.query;
         const response = await service.getAll(page, limit, price, sort);
+        let urlNext = `http://localhost:8080/products?page=${response.nextPage}`;
         if (sort !== undefined) {
-            let urlNext = `http://localhost:8080/products?page=${response.nextPage}`
-            return urlNextSort = urlNext + `&sort=${sort}`;
+            if (price !== undefined) {
+                return nextLink = `${urlNext}&sort=${sort}&price=${price}`;
+            } else {
+                return nextLink = `${urlNext}&sort=${sort}`;
+            }
+        } else {
+            if (price !== undefined) {
+                nextLink = response.hasNextPage ? `${urlNext}&price=${price}` : null;
+            } else {
+                nextLink = response.hasNextPage ? urlNext : null;
+            }
         };
-        if (sort!== undefined) {
-            let urlPrev = `http://localhost:8080/products?page=${response.prevPage}`
-            return urlPrevSort = urlPrev + `&sort=${sort}`
+        let urlPrev = `http://localhost:8080/products?page=${response.prevPage}`;
+        if (sort !== undefined) {
+            if (price !== undefined) {
+                return prevLink = `${urlPrev}&sort=${sort}&price=${price}`;
+            } else {
+                return prevLink = `${urlPrev}&sort=${sort}`;
+            }
+        } else {
+            if (price !== undefined) {
+                prevLink = response.hasPrevPage ? `${urlPrev}&price=${price}` : null;
+            } else {
+                prevLink = response.hasPrevPage ? urlPrev : null;
+            }
         };
-        const next = response.hasNextPage ? `http://localhost:8080/products?page=${response.nextPage}` : null;
-        const prev = response.hasPrevPage ? `http://localhost:8080/products?page=${response.prevPage}` : null;
         res.status(200).json({
             status: 'success',
             payload: response.docs,
@@ -23,8 +41,8 @@ export const getAll = async (req, res, next) => {
             page,
             hasNextPage: response.hasNextPage,
             hasPrevPage: response.hasPrevPage,
-            next,
-            prev
+            nextLink,
+            prevLink
         });
     } catch (error) {
         next(error.message);

@@ -39,7 +39,7 @@ export const remove = async (id) => {
         else return cartDel;
     } catch (error) {
         console.log(error);
-    }
+    };
 };
 
 export const addProdToCart = async (cartId, prodId) => {
@@ -51,19 +51,17 @@ export const addProdToCart = async (cartId, prodId) => {
         return await cartDao.addProdToCart(cartId, prodId);
     } catch (error) {
         console.log(error);
-    }
+    };
 };
 
 export const removeProdToCart = async (cartId, prodId) => {
     try {
         const existCart = await getById(cartId);
-        // console.log(existCart)
         if (!existCart) return null;
         const existProdInCart = await cartDao.existProdInCart(cartId, prodId);
-        // console.log(existProdInCart)
         if (!existProdInCart) return null;
         return await cartDao.removeProdToCart(cartId, prodId);
     } catch (error) {
         console.log(error);
-    }
+    };
 };

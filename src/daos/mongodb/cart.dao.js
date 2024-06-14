@@ -37,6 +37,20 @@ export default class CartDaoMongoDB {
         };
     };
 
+    async existProdInCart(cartId, prodId) {
+        try {
+            return await CartModel.findOne({
+                _id: cartId,
+                products: { $elemMatch: { product: prodId } }
+            });
+            // return await CartModel.findOne(
+            //   { _id: cartId, 'products.product': prodId }
+            // )
+        } catch (error) {
+            console.log(error);
+        };
+    };
+
     async addProdToCart(cartId, prodId, quantity) {
         try {
             const existProdInCart = await this.existProdInCart(cartId, prodId);
@@ -65,6 +79,17 @@ export default class CartDaoMongoDB {
                 { $pull: { products: { product: prodId } } },
                 { new: true }
             )
+        } catch (error) {
+            console.log(error);
+        };
+    };
+
+    async update(id, obj) {
+        try {
+            const response = await CartModel.findByIdAndUpdate(id, obj, {
+                new: true,
+            });
+            return response;
         } catch (error) {
             console.log(error);
         };
