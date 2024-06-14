@@ -42,8 +42,14 @@ export const remove = async (id) => {
     };
 };
 
-export const clearCart = async () => {
-
+export const clearCart = async (cartId) => {
+    try {
+        const existCart = await getById(cartId);
+        if (!existCart) return null;
+        return await cartDao.clearCart(cartId);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const update = async (id, obj) => {

@@ -42,7 +42,14 @@ export const remove = async (req, res, next) => {
 };
 
 export const clearCart = async (req, res, next) => {
-
+    try {
+        const { idCart } = req.params;
+        const clearCart = await service.clearCart(idCart);
+        if (!clearCart) res.json({ msg: `Ocurrio un error y no se a podido vaciar el carrito ${idCart}`});
+        else res.json(clearCart);
+    } catch (error) {
+        next(error.message);
+    };
 };
 
 export const update = async (req, res, next) => {
