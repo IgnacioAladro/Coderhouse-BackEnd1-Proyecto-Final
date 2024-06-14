@@ -37,15 +37,12 @@ export default class CartDaoMongoDB {
         };
     };
 
-    async existProdInCart(cartId, prodId) {
+    async existProductInCart(cartId, prodId) {
         try {
             return await CartModel.findOne({
                 _id: cartId,
                 products: { $elemMatch: { product: prodId } }
             });
-            // return await CartModel.findOne(
-            //   { _id: cartId, 'products.product': prodId }
-            // )
         } catch (error) {
             console.log(error);
         };
@@ -53,20 +50,17 @@ export default class CartDaoMongoDB {
 
     async addProdToCart(cartId, prodId, quantity) {
         try {
-            const existProdInCart = await this.existProdInCart(cartId, prodId);
-            if (existProdInCart) {
-                return await CartModel.findOneAndUpdate(
-                    { _id: cartId, 'products.product': prodId },
-                    { $set: { 'products.$.quantity': existProdInCart.products[0].quantity + 1 } },
-                    { new: true }
-                );
-            } else {
-                return await CartModel.findByIdAndUpdate(
-                    cartId,
-                    { $push: { products: { product: prodId } } },
-                    { new: true }
-                )
-            }
+            const cart = await CartModel.findById(cartId);
+            if (!cart) return null;
+            const productInCart = cart.products.findIndex(product => product.product.toString() === prodId);
+            if (productInCart !== -1) {
+                cart.products[productInCart].quantity = quantity;
+            } else return await CartModel.findByIdAndUpdate(
+                cartId,
+                { $push: { products: { product: prodId, quantity } } },
+                { new: true }
+            );
+            return cart;
         } catch (error) {
             console.log(error);
         };

@@ -46,8 +46,13 @@ export const addProdToCart = async (cartId, prodId) => {
     try {
         const existCart = await getById(cartId);
         if (!existCart) return null;
-        const existProd = await prodDao.getById(prodId);
-        if (!existProd) return null;
+        const existProduct = await prodDao.getById(prodId);
+        if (!existProduct) return null;
+        const productInCart = await cartDao.existProductInCart(cartId, prodId);
+        if (productInCart) {
+            const quantity = productInCart.products.find(product => product.product.toString() === prodId).quantity + 1;
+            return await cartDao.addProdToCart(cartId, prodId, quantity)
+        };
         return await cartDao.addProdToCart(cartId, prodId);
     } catch (error) {
         console.log(error);
@@ -58,7 +63,7 @@ export const removeProdToCart = async (cartId, prodId) => {
     try {
         const existCart = await getById(cartId);
         if (!existCart) return null;
-        const existProdInCart = await cartDao.existProdInCart(cartId, prodId);
+        const existProdInCart = await cartDao.existProductInCart(cartId, prodId);
         if (!existProdInCart) return null;
         return await cartDao.removeProdToCart(cartId, prodId);
     } catch (error) {
