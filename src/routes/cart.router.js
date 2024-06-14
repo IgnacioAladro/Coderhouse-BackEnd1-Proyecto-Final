@@ -11,9 +11,7 @@ router.get("/:id", controller.getById);
 
 router.post("/", controller.create);
 
-router.delete("/:id", controller.remove);
-
-router.delete("/clear/:idCart", controller.clearCart);
+router.delete("/:idCart", controller.clearCart);
 
 router.put("/:id", controller.update);
 

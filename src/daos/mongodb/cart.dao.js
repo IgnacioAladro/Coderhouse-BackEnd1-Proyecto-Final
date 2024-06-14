@@ -29,14 +29,6 @@ export default class CartDaoMongoDB {
         };
     };
 
-    async remove(id) {
-        try {
-            return await CartModel.findByIdAndDelete(id);
-        } catch (error) {
-            console.log(error);
-        };
-    };
-
     async clearCart(cartId) {
         try {
             return await CartModel.findOneAndUpdate(

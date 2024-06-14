@@ -30,17 +30,6 @@ export const create = async (req, res, next) => {
     };
 };
 
-export const remove = async (req, res, next) => {
-    try {
-        const { id } = req.params;
-        const cartDel = await service.remove(id);
-        if (!cartDel) res.status(404).json({ msg: "Error delete cart!" });
-        else res.status(200).json({ msg: `Cart id: ${id} deleted` });
-    } catch (error) {
-        next(error.message);
-    };
-};
-
 export const clearCart = async (req, res, next) => {
     try {
         const { idCart } = req.params;

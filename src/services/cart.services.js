@@ -32,16 +32,6 @@ export const create = async () => {
     }
 };
 
-export const remove = async (id) => {
-    try {
-        const cartDel = await cartDao.remove(id);
-        if (!cartDel) return false;
-        else return cartDel;
-    } catch (error) {
-        console.log(error);
-    };
-};
-
 export const clearCart = async (cartId) => {
     try {
         const existCart = await getById(cartId);
